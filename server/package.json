@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node --loader ts-node/esm src/index.ts",
     "dev": "nodemon --watch \"./**/*.ts\" --exec \"node --loader ts-node/esm\" src/index.ts"
   },
   "keywords": [],
