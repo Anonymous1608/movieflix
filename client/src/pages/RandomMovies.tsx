@@ -27,7 +27,7 @@ const RandomMovies = () => {
       setError(null);
       setMovie(null);
 
-      const response = await fetch("/api/random");
+      const response = await fetch("/api/movies/random");
       if (!response.ok) throw new Error("Failed to fetch random movie");
       const data = await response.json();
 
@@ -45,7 +45,7 @@ const RandomMovies = () => {
   }, [fetchRandomMovie]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br p-4 md:p-8 grid grid-cols-1 md:grid-cols-2">
+    <div className="min-h-screen bg-gradient-to-br from-black to-slate-900 p-4 md:p-8 pt-24 md:pt-32 grid grid-cols-1 md:grid-cols-2">
       {/* Header */}
       <div className="max-w-7xl mx-auto text-center mb-12 md:pl-10">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 tracking-tight pt-4">

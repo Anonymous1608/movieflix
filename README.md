@@ -1,123 +1,243 @@
-# 🎬 MOVIEFLIX
+# 🎬 MOVIEFLIX - Production-Ready Movie Watching Web App
 
-Born from movie nights and laptop struggles - a simple solution to find where to watch your favorite films. Because sometimes, you just need to escape into a good movie without the endless search.
+A modern, full-stack movie watching web application with user authentication, personalized recommendations, watchlists, favorites, and reviews.
 
-## ✨ Why This Exists
+## ✨ Features
 
-Ever felt overwhelmed trying to find where to watch something? Same here. I built this because:
-- I was tired of jumping between different streaming sites
-- Movies are my escape when things get tough
-- Wanted something simple that just works on laptops
-- I didn't want to deal with signing up or entering personal information just to watch a movie
-- Thought others might find it useful too
+### Core Features
+- 🔍 **Advanced Movie Search** - Search movies with pagination and filters
+- 🎲 **Random Movie Discovery** - Discover new movies randomly
+- 📊 **Detailed Movie Information** - Comprehensive movie details, cast, and streaming availability
+- 🔄 **Trending & Popular Movies** - Daily updated trending and popular movies
+- 📺 **Streaming Integration** - View where movies are available to stream
 
-## 🎯 Features
+### User Features
+- 🔐 **Authentication System** - Secure JWT-based authentication with login/signup
+- 👤 **User Profiles** - Personal profiles with watchlist and favorites tracking
+- 📝 **Watchlist & Favorites** - Save movies to watch later or mark as favorites
+- ⭐ **Reviews & Ratings** - Rate and review movies (1-10 scale)
+- 🎯 **Personalized Recommendations** - Get movie recommendations based on your preferences
+- 📈 **Activity Tracking** - View your review history and statistics
 
-- 🔍 Easy movie search across platforms
-- 🎲 Random movie picker when you can't decide
-- 📊 Detailed movie info and ratings
-- 📺 Streaming availability
-- 🔄 Daily updated trending movies
+### Production Features
+- 🛡️ **Security** - Helmet.js, rate limiting, input validation
+- 🗄️ **Database** - MongoDB with Mongoose for data persistence
+- 🔒 **Protected Routes** - Authentication middleware for protected endpoints
+- 📝 **Error Handling** - Comprehensive error handling and logging
+- ⚡ **Performance** - Optimized API calls and caching strategies
+- 🎨 **Modern UI** - Beautiful, responsive design with Tailwind CSS
 
-## ⚠️ About Ads
+## 🚀 Getting Started
 
-This app uses the VidSrc API, which means:
-- Yes, there are some ads
-- No, I don't make money from them
-- They're from the API, not my choice
-- Feel free to use an ad blocker
+### Prerequisites
 
-### Setup
+- Node.js (v18 or higher)
+- MongoDB (local or MongoDB Atlas)
+- TMDB API Key ([Get one here](https://www.themoviedb.org/settings/api))
 
-#### 1. Clone the repository
+### Installation
 
-```sh
+1. **Clone the repository**
+```bash
 git clone https://github.com/yourusername/movieflix.git
 cd movieflix
 ```
 
-#### 2. Install dependencies
-
-```sh
-cd client
-npm install
-cd ../server
+2. **Install server dependencies**
+```bash
+cd server
 npm install
 ```
 
-#### 3. Configure Environment Variables
+3. **Install client dependencies**
+```bash
+cd ../client
+npm install
+```
+
+4. **Configure environment variables**
 
 Create a `.env` file in the `server/` directory:
-
-```
-BASE_URL=https://api.themoviedb.org/3
+```env
+NODE_ENV=development
 PORT=5000
-API_KEY=YOUR_TMDB_API_KEY
+BASE_URL=https://api.themoviedb.org/3
+API_KEY=your_tmdb_api_key_here
+MONGODB_URI=mongodb://localhost:27017/movieflix
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-min-32-chars
+CLIENT_URL=http://localhost:5173
 ```
 
-Replace `YOUR_TMDB_API_KEY` with your TMDb API key.
+5. **Start MongoDB**
 
-#### 4. Run the backend server
+If using local MongoDB:
+```bash
+mongod
+```
 
-```sh
+Or use MongoDB Atlas and update `MONGODB_URI` in `.env`.
+
+6. **Run the backend server**
+```bash
+cd server
 npm run dev
 ```
 
-#### 5. Run the frontend
+The server will start on `http://localhost:5000`
 
-```sh
-cd ../client
+7. **Run the frontend**
+```bash
+cd client
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+The client will start on `http://localhost:5173`
 
-## Scripts
+## 📁 Project Structure
 
-- `npm run dev` – Start development server
-- `npm run build` – Build for production
-- `npm run lint` – Run ESLint
-- `npm run preview` – Preview production build
+```
+movieflix/
+├── server/
+│   ├── src/
+│   │   ├── config/          # Configuration files
+│   │   │   ├── database.ts  # MongoDB connection
+│   │   │   └── env.ts       # Environment validation
+│   │   ├── models/          # Mongoose models
+│   │   │   ├── User.ts      # User model
+│   │   │   └── Review.ts    # Review model
+│   │   ├── middleware/      # Express middleware
+│   │   │   ├── auth.ts       # Authentication middleware
+│   │   │   ├── errorHandler.ts
+│   │   │   ├── rateLimiter.ts
+│   │   │   └── validator.ts
+│   │   ├── routes/          # API routes
+│   │   │   ├── auth.ts       # Authentication routes
+│   │   │   ├── users.ts      # User management routes
+│   │   │   ├── movies.ts     # Movie API routes
+│   │   │   ├── reviews.ts    # Review routes
+│   │   │   └── recommendations.ts
+│   │   └── index.ts         # Server entry point
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── client/
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   ├── context/         # React context (Auth)
+│   │   ├── pages/           # Page components
+│   │   ├── utils/           # Utility functions
+│   │   └── App.tsx
+│   ├── package.json
+│   └── vite.config.ts
+│
+└── README.md
+```
 
-## Technologies
+## 🔌 API Endpoints
 
-- React, TypeScript, Vite
-- Tailwind CSS
-- Express.js
-- TMDb API
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
 
+### Movies
+- `GET /api/movies/search?name={query}&page={page}` - Search movies
+- `GET /api/movies/trending?page={page}` - Get trending movies
+- `GET /api/movies/popular?page={page}` - Get popular movies
+- `GET /api/movies/top-rated?page={page}` - Get top rated movies
+- `GET /api/movies/:movieId` - Get movie details
+- `GET /api/movies/random` - Get random movie
+- `GET /api/movies/live` - Get movies with cast info
 
+### User (Protected)
+- `GET /api/users/profile` - Get user profile
+- `POST /api/users/watchlist/:movieId` - Add to watchlist
+- `DELETE /api/users/watchlist/:movieId` - Remove from watchlist
+- `POST /api/users/favorites/:movieId` - Add to favorites
+- `DELETE /api/users/favorites/:movieId` - Remove from favorites
+- `PUT /api/users/preferences` - Update preferences
 
-## 👥 Want to Help?
+### Reviews
+- `GET /api/reviews/:movieId` - Get reviews for a movie
+- `POST /api/reviews/:movieId` - Create/update review (Protected)
+- `DELETE /api/reviews/:movieId` - Delete review (Protected)
 
-Please do! This project is open source and needs people like you. Whether you're:
-- A developer who can code
-- A designer with an eye for UI
-- Someone who's good at documentation
-- Just a movie buff with ideas
+### Recommendations
+- `GET /api/recommendations` - Get personalized recommendations
+- `GET /api/recommendations/similar/:movieId` - Get similar movies
 
-All contributions are welcome! Here's how:
-1. Fork the repo
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+## 🛠️ Technologies Used
 
-No contribution is too small. Even fixing a typo helps!
+### Backend
+- **Express.js** - Web framework
+- **TypeScript** - Type safety
+- **MongoDB** - Database
+- **Mongoose** - ODM
+- **JWT** - Authentication
+- **bcryptjs** - Password hashing
+- **Helmet** - Security headers
+- **express-rate-limit** - Rate limiting
+- **express-validator** - Input validation
+- **Zod** - Environment validation
+- **Morgan** - HTTP request logging
 
-## ❤️ Support
+### Frontend
+- **React** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **React Router** - Routing
+- **Tailwind CSS** - Styling
+- **Lucide React** - Icons
 
-If you like this project:
-- Star it on GitHub
-- Share it with friends
-- Submit issues or ideas
-- Contribute if you can
+## 🔒 Security Features
 
-## 📝 License
+- JWT-based authentication
+- Password hashing with bcrypt
+- Rate limiting on API endpoints
+- Input validation and sanitization
+- CORS configuration
+- Helmet.js security headers
+- Environment variable validation
 
-MIT - Feel free to use this however you want. Just be cool about it.
+## 📝 Scripts
+
+### Server
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+
+### Client
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🚀 Deployment
+
+### Backend Deployment
+
+1. Set environment variables in your hosting platform
+2. Build the project: `npm run build`
+3. Start the server: `npm start`
+
+### Frontend Deployment
+
+1. Update API endpoints in production
+2. Build the project: `npm run build`
+3. Deploy the `dist/` folder to your hosting platform
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+MIT License - feel free to use this project however you want.
+
+## 🙏 Acknowledgments
+
+- [The Movie Database (TMDB)](https://www.themoviedb.org/) for the movie API
+- All the open-source libraries that made this project possible
 
 ---
 
-**Note:** This project is for educational purposes and uses TMDb API. Please comply with TMDb’s terms of use.
-
-Made with ❤️ and probably while watching a movie.
+Made with ❤️ by Aniket and probably while watching a movie.
