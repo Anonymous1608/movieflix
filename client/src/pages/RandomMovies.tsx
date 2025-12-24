@@ -21,13 +21,15 @@ const RandomMovies = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+   const API_BASE = import.meta.env.VITE_API_URL;
+
   const fetchRandomMovie = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       setMovie(null);
 
-      const response = await fetch("/api/movies/random");
+      const response = await fetch(`${API_BASE}/api/movies/random`);
       if (!response.ok) throw new Error("Failed to fetch random movie");
       const data = await response.json();
 

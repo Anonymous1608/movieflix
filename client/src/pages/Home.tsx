@@ -16,8 +16,11 @@ const Home = () => {
   const [moviesData, setMoviesData] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const API_BASE = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch("/api/movies/live")
+    
+    fetch(`${API_BASE}/api/movies/live`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch movies");
@@ -53,31 +56,31 @@ const Home = () => {
       {/* Content Sections - offset to pull up slightly over hero */}
       <div className="relative z-20 -mt-10 md:-mt-20 space-y-12 px-4 md:px-12 bg-gradient-to-t from-black via-black to-transparent pt-12">
         <MovieSlider 
-          apilink="/api/movies/trending" 
+          apilink={`${API_BASE}/api/movies/trending`} 
           pagename="Trending Now" 
           category="trending"
         />
         
         <MovieSlider 
-          apilink="/api/movies/top-rated" 
+          apilink={`${API_BASE}/api/movies/top-rated`} 
           pagename="Top Rated Masterpieces" 
           category="top-rated"
         />
         
         <MovieSlider 
-          apilink="/api/movies/popular" 
+          apilink={`${API_BASE}/api/movies/popular`} 
           pagename="Popular on MovieFlix" 
           category="popular"
         />
 
         <MovieSlider 
-          apilink="/api/movies/indian" 
+          apilink={`${API_BASE}/api/movies/indian`} 
           pagename="Best of India" 
           category="indian"
         />
         
         <MovieSlider 
-          apilink="/api/movies/random" 
+          apilink={`${API_BASE}/api/movies/random`} 
           pagename="Because You Watched..." 
           category="random"
         />

@@ -3,6 +3,7 @@ import MovieGrid from "../components/MovieGrid";
 
 const ViewAllPage = () => {
   const { category } = useParams<{ category: string }>();
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   let apilink = "";
   let pagename = "";
@@ -11,40 +12,40 @@ const ViewAllPage = () => {
   switch (category) {
     // Movies
     case "trending":
-      apilink = "/api/movies/trending";
+      apilink = `${API_BASE}/api/movies/trending`;
       pagename = "Trending Movies";
       break;
     case "popular":
-      apilink = "/api/movies/popular";
+      apilink = `${API_BASE}/api/movies/popular`;
       pagename = "Popular Movies";
       break;
     case "top-rated":
-      apilink = "/api/movies/top-rated";
+      apilink = `${API_BASE}/api/movies/top-rated`;
       pagename = "Top Rated Movies";
       break;
     case "indian":
-      apilink = "/api/movies/indian";
+      apilink = `${API_BASE}/api/movies/indian`;
       pagename = "Indian Movies";
       break;
     case "random":
-        apilink = "/api/movies/random";
+        apilink = `${API_BASE}/api/movies/random`;
         pagename = "Recommendations";
         break;
 
     // TV Shows
     case "tv-popular":
-      apilink = "/api/tv/popular";
+      apilink = `${API_BASE}/api/tv/popular`;
       pagename = "Popular TV Shows";
       mediaType = "tv";
       break;
     case "tv-top-rated":
-      apilink = "/api/tv/top-rated";
+      apilink = `${API_BASE}/api/tv/top-rated`;
       pagename = "Top Rated TV Shows";
       mediaType = "tv";
       break;
       
     default:
-      apilink = "/api/movies/popular";
+      apilink = `${API_BASE}/api/movies/popular`;
       pagename = "Most Popular";
   }
 

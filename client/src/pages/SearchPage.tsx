@@ -11,6 +11,8 @@ const Searchpage = () => {
   const [searchQuery, setSearchQuery] = useState<string>(""); // Actively displayed matches
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const API_BASE = import.meta.env.VITE_API_URL;
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMovieName(value);
@@ -55,7 +57,7 @@ const Searchpage = () => {
         <div className="space-y-12">
           {searchQuery ? (
              <MovieGrid 
-                apilink={`/api/search/multi?query=${encodeURIComponent(searchQuery)}`}
+                apilink={`${API_BASE}/api/search/multi?query=${encodeURIComponent(searchQuery)}`}
                 pagename={`Results for: ${searchQuery}`}
                 enableInfiniteScroll={true}
                 // No explicit mediaType, let the grid handle it from results
@@ -63,7 +65,7 @@ const Searchpage = () => {
           ) : (
             <div className="space-y-12">
                 <MovieGrid 
-                    apilink="/api/movies/top-rated"
+                    apilink={`${API_BASE}/api/movies/top-rated`}
                     pagename="Trending Movies"
                     enableInfiniteScroll={false}
                     mediaType="movie"

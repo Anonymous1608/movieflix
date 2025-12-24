@@ -50,9 +50,11 @@ const MovieDetails = () => {
   const [userWatchlist, setUserWatchlist] = useState<number[]>([]);
   const [userFavorites, setUserFavorites] = useState<number[]>([]);
 
+   const API_BASE = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/movies/${movieid}`)
+    fetch(`${API_BASE}/api/movies/${movieid}`)
       .then((res) => res.json())
       .then((data: MovieDetailsType) => {
         setMoviesData(data);
